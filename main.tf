@@ -2,7 +2,7 @@ locals {
   project_name = "lts"
   owner        = "Platform-team"
   region       = "us-east-1"
-  subnet       = chunklist([for x in cidrsubnets("10.0.0.0/8", 8, 8, 8, 8, 8, 8, 8, 8, 8, 8) : x if x != cidrsubnets("10.0.0.0/8", 8, 8, 8, 8)[0]], 3)
+  subnet       = chunklist([for x in cidrsubnets("10.0.0.0/8", 16, 16, 16, 16, 16, 16, 16, 16, 16, 16) : x if x != cidrsubnets("10.0.0.0/8", 16)[0]],3)
 }
 
 # create vpc from here
