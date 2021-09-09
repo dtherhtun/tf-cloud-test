@@ -2,6 +2,7 @@ locals {
   project_name = "lts"
   owner        = "Platform-team"
   region       = "us-east-1"
+  env          = "development"
   subnet       = chunklist([for x in cidrsubnets("10.0.0.0/8", 16, 16, 16, 16, 16, 16, 16, 16, 16, 16) : x if x != cidrsubnets("10.0.0.0/8", 16)[0]], 3)
 }
 
@@ -14,8 +15,8 @@ module "vpc" {
   cidr = cidrsubnets("10.0.0.0/8", 8)[0]
 
   azs              = [for x in ["a", "b", "c"] : "${local.region}${x}"]
-  private_subnets  = local.subnet[0]
-  public_subnets   = local.subnet[1]
+  public_subnets   = local.subnet[0]
+  private_subnets  = local.subnet[1]
   database_subnets = local.subnet[2]
 
   enable_nat_gateway     = var.vpc.is_enable_natgw
@@ -27,7 +28,7 @@ module "vpc" {
   create_database_subnet_route_table = var.vpc.is_create_db_sub_rt
 
   tags = {
-    Name  = local.project_name
-    Owner = local.owner
+    Environment = local.env
+    Owner       = local.owner
   }
 }
