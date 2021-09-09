@@ -11,12 +11,12 @@ module "vpc" {
   version = "3.7.0"
 
   name = join("-", [local.project_name, "vpc"])
-  cidr = var.vpc.cidr
+  cidr = cidrsubnets("10.0.0.0/8", 8)[0]
 
   azs              = [for x in ["a", "b", "c"] : "${local.region}${x}"]
-  private_subnets  = subnet[0]
-  public_subnets   = subnet[1]
-  database_subnets = subnet[2]
+  private_subnets  = local.subnet[0]
+  public_subnets   = local.subnet[1]
+  database_subnets = local.subnet[2]
 
   enable_nat_gateway     = var.vpc.is_enable_natgw
   enable_vpn_gateway     = var.vpc.is_enable_vpngw
