@@ -38,10 +38,15 @@ variable "instances" {
       ssh_key       = "dther"
       is_mon_true   = true
       sg            = "ssh_sg"
-      network       = "private1"
+      network       = "public1"
     }
   }
   description = <<EOF
   Group variables of aws instances looks like this:
+  instances = {
+      bastion = {}
+      web1 = {}
+      crawler = {}
+  }
   EOF
 }
