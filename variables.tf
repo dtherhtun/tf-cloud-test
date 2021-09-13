@@ -28,3 +28,20 @@ variable "vpc" {
   }```
   EOF
 }
+
+variable "instances" {
+  type = map(any)
+  default = {
+    bastion = {
+      distro        = "ubuntu"
+      instance_type = "t3.micro"
+      ssh_key       = "dther"
+      is_mon_true   = true
+      sg            = "ssh_sg"
+      network       = "private1"
+    }
+  }
+  description = <<EOF
+  Group variables of aws instances looks like this:
+  EOF
+}
